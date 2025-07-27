@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\NewsletterSubscriptionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,5 +27,24 @@ Route::controller(ProjectController::class)->middleware('auth')->group(function 
     Route::post('/projects/create', 'store')->name('projects.store');
     Route::get('/projects/{project:id}', 'show')->name('projects.show');
 });
+
+Route::post('/subscribe', [NewsletterSubscriptionController::class, 'subscribe'])->name('newsletter.subscribe');
+
+Route::controller(NewsletterController::class)->middleware('auth')->group(function () {
+    Route::get('/newsletter', 'index')->name('admin.newsletter.index');
+    Route::post('/newsletter/send', 'send')->name('admin.newsletter.send');
+});
+
+// Route::get('/test-smtp', function() {
+//     try {
+//         Mail::raw('Hostinger SMTP Test', function($message) {
+//             $message->to('3mar.aljaber@gmail.com')
+//                     ->subject('SMTP Test');
+//         });
+//         return 'Email sent successfully!';
+//     } catch (\Exception $e) {
+//         return 'Error: '.$e->getMessage();
+//     }
+// });
 
 require __DIR__.'/auth.php';

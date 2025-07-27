@@ -36,5 +36,6 @@
             </div>
         @endforelse
     </section>
+    @include('footer')
     @endsection
 </x-app-layout>
