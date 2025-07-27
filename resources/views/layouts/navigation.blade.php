@@ -9,6 +9,14 @@
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.index')">
+                        {{ __('Projects') }}
+                    </x-nav-link>
+                    @if(auth()->user()->name === 'admin')
+                        <x-nav-link :href="route('admin.newsletter.index')" :active="request()->routeIs('admin.newsletter.index')">
+                            {{ __('Newsletter') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
