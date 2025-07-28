@@ -7,13 +7,14 @@ use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', function () {
-    return view('auth/login');
+    return redirect('projects');
 });
 
 Route::get('/home', function () {
     return view('home');
-})->middleware(['auth', 'verified'])->name('home');
+})->name('home');
 
 Route::controller(ProfileController::class)->middleware('auth')->group(function () {
     Route::get('/profile', 'edit')->name('profile.edit');
@@ -21,12 +22,10 @@ Route::controller(ProfileController::class)->middleware('auth')->group(function 
     Route::delete('/profile', 'destroy')->name('profile.destroy');
 });
 
-Route::controller(ProjectController::class)->middleware('auth')->group(function () {
-    Route::get('/projects', 'index')->name('projects.index');
-    Route::get('/projects/create', 'create')->name('projects.create');
-    Route::post('/projects/create', 'store')->name('projects.store');
-    Route::get('/projects/{project:id}', 'show')->name('projects.show');
-});
+Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('/projects/{project:id}', [ProjectController::class, 'show'])->name('projects.show');
+Route::get('/projects/create', [ProjectController::class, 'create'])->middleware('auth')->name('projects.create');
+Route::post('/projects/create', [ProjectController::class, 'store'])->middleware('auth')->name('projects.store');
 
 Route::post('/subscribe', [NewsletterSubscriptionController::class, 'subscribe'])->name('newsletter.subscribe');
 

@@ -3,11 +3,11 @@
     @section('content')
     <header class="d-flex justify-content-between align-items-center m-4" >
         <div class="h4 text-dark">Projects</div>
-        @if(auth()->user()->name === 'admin')
+        @auth
             <div class="h4 text-dark">
                 <a href="/projects/create" class="text-decoration-none title-color">Create New Project</a>
             </div>
-        @endif
+        @endauth
     </header>
 
     <section class="row p-6">
