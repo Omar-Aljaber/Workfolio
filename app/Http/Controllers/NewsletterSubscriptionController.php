@@ -15,7 +15,7 @@ class NewsletterSubscriptionController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
+            return redirect("/projects")
                 ->with('newsletter_error', $validator->errors()->first('email'))
                 ->withInput();
         }
@@ -25,7 +25,7 @@ class NewsletterSubscriptionController extends Controller
             'is_active' => true
         ]);
 
-        return redirect()->back()
+        return redirect("/projects")
             ->with('newsletter_success', 'Thank you for subscribing to our newsletter!');
     }
 }

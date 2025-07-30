@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\NewsletterSubscription;
@@ -15,7 +15,7 @@ class NewsletterController extends Controller
     public function index()
     {
         $subscribersCount = NewsletterSubscription::active()->count();
-        return view('admin.newsletter.index', compact('subscribersCount'));
+        return view('newsletter.index', compact('subscribersCount'));
     }
 
     /**
