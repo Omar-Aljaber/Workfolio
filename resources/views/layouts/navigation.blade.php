@@ -6,18 +6,33 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    <x-nav-link class="ml-6" :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-nav-link>
                     <x-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.index')">
                         {{ __('Projects') }}
                     </x-nav-link>
                     @auth
-                        <x-nav-link :href="route('admin.newsletter.index')" :active="request()->routeIs('admin.newsletter.index')">
+                        <x-nav-link :href="route('newsletter.index')" :active="request()->routeIs('newsletter.index')">
                             {{ __('Newsletter') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('projects.create')" :active="request()->routeIs('projects.create')">
+                            {{ __('Create New Project') }}
                         </x-nav-link>
                     @endauth
                 </div>
+            </div>
+
+            <!-- Languages options -->
+            <div class="flex justify-end p-4">
+                <ul class="flex space-x-4">
+                    <li>
+                        <a href="{{ route('changeLang','en') }}" class="text-gray-600 hover:text-gray-900 {{ app()->getLocale()== 'en' ? 'font-bold' : '' }}">English</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('changeLang','ar') }}" class="text-gray-600 hover:text-gray-900 mr-5 {{ app()->getLocale()== 'ar' ? 'font-bold' : '' }}">العربية</a>
+                    </li>
+                </ul>
             </div>
 
             <!-- Settings Dropdown -->

@@ -2,12 +2,7 @@
     @section('title', 'projects')
     @section('content')
     <header class="d-flex justify-content-between align-items-center m-4" >
-        <div class="h4 text-dark">Projects</div>
-        @auth
-            <div class="h4 text-dark">
-                <a href="/projects/create" class="text-decoration-none title-color">Create New Project</a>
-            </div>
-        @endauth
+        <div class="h4 text-dark">{{ __('Projects') }}</div>
     </header>
 
     <section class="row p-6">
@@ -16,7 +11,7 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <h4 class="fw-bold title-color">
-                            <a href="/projects/{{ $project->id }}">{{ $project->title }}</a>
+                            <a href="/public/projects/{{ $project->id }}">{{ $project->title }}</a>
                         </h4>
                         <div class="card-text mt-3">{{$project->summary}}</div>
                     </div>

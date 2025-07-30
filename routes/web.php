@@ -1,12 +1,22 @@
 <?php
 
-use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\NewsletterSubscriptionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/greeting/{locale}', function (string $locale) {
+    if (! in_array($locale, ['ar', 'en'])) {
+        abort(400, 'Invalid Language');
+    }
+    Session::put('locale', $locale);
+    App::setLocale($locale);
+    return redirect()->back();
+})->name('changeLang');
 
 Route::get('/', function () {
     return redirect('projects');
@@ -24,14 +34,17 @@ Route::controller(ProfileController::class)->middleware('auth')->group(function 
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{project:id}', [ProjectController::class, 'show'])->name('projects.show');
-Route::get('/projects/create', [ProjectController::class, 'create'])->middleware('auth')->name('projects.create');
-Route::post('/projects/create', [ProjectController::class, 'store'])->middleware('auth')->name('projects.store');
+
+Route::controller(ProjectController::class)->middleware('auth')->group(function () {
+    Route::get('/project/create', 'create')->name('projects.create');
+    Route::post('/project/create', 'store')->name('projects.store');
+});
 
 Route::post('/subscribe', [NewsletterSubscriptionController::class, 'subscribe'])->name('newsletter.subscribe');
 
 Route::controller(NewsletterController::class)->middleware('auth')->group(function () {
-    Route::get('/newsletter', 'index')->name('admin.newsletter.index');
-    Route::post('/newsletter/send', 'send')->name('admin.newsletter.send');
+    Route::get('/newsletter', 'index')->name('newsletter.index');
+    Route::post('/newsletter/send', 'send')->name('newsletter.send');
 });
 
 // Route::get('/test-smtp', function() {
@@ -46,4 +59,4 @@ Route::controller(NewsletterController::class)->middleware('auth')->group(functi
 //     }
 // });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

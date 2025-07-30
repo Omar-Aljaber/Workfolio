@@ -1,8 +1,6 @@
-
-
 <footer class="fixed-bottom bg-white shadow-lg">
     <div class="newsletter-subscription container p-6">
-        <h4 class="mb-2">Newsletter subscription</h4>
+        <h4 class="mb-2">{{__("Newsletter Subscription")}}</h4>
         
         @if(session('newsletter_success'))
             <div class="alert alert-success">
@@ -16,13 +14,12 @@
             </div>
         @endif
         
-        <form action="/subscribe" method="POST">
+        <form action="/public/subscribe" method="POST">
             @csrf
             <div class="input-group">
-                <input type="email" name="email" class="form-control" 
-                    placeholder="Email" required>
+                <input type="email" name="email" class="form-control" placeholder={{__("Email")}} required>
                 <button type="submit" class="btn btn-primary">
-                    Subscribe
+                    {{__("Subscribe")}}
                 </button>
             </div>
         </form>

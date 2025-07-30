@@ -3,10 +3,10 @@
     @section('content')
         <header class="container d-sm-flex justify-content-between align-items-center my-5 text-center">
             <h6 class="text-dark">
-                <a href="/projects" class="text-decoration-none title-color">Projects</a> / {{ $project->title }}
+                <a href="/public/projects" class="text-decoration-none title-color">{{__("Projects")}}</a> / {{ $project->title }}
             </h6>
             <div class="mt-4 mt-sm-0">
-                <a href="/projects" class="px-4 px-sm-5 title-color">Back</a>
+                <a href="/public/projects" class="px-4 px-sm-5 title-color">{{__("Back")}}</a>
             </div>
         </header>
         <section class="container">
